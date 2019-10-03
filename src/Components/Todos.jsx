@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import db from '../FirestoreConsfig';
 import {Table,Button, Row, Col, InputGroup, Input, Fade} from 'reactstrap';
-import { updateExpression } from '@babel/types';
+// import { updateExpression } from '@babel/types';
 
 export default class Todos extends Component {
 
@@ -10,7 +10,7 @@ state ={
     inputValue:'',
  //para saber lo que estamos editando y es falso porque no iniciamos editando algo, por lo tanto es falso. El id del documento editado se guarda.  
     edit:false,
-    id:'',
+    number:'',
     fadeIn:false,
     message:'',
 }
@@ -19,7 +19,7 @@ state ={
          db.collection('todos').onSnapshot((snapShots) => {
                this.setState({
                    items:snapShots.docs.map(doc => {
-                       return{id:doc.id,data:doc.data()}
+                       return{id:doc.number,data:doc.data()}
                    })
                })
        
@@ -39,6 +39,11 @@ state ={
         !edit?
         db.collection("todos").add({
             item: inputValue
+            // mesa: 6, 
+            // nombre: 'Pepita',
+            // products: [
+
+            // ]
         }).then( () => {
             this.message('Agregado')
         }).catch ( ()=> {
